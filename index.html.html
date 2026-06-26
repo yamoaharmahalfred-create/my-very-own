@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday Reina ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#0a0008;min-height:100vh;font-family:'Lato',sans-serif;overflow-x:hidden;cursor:pointer;}
+  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
+  #fx-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+  #scroll{position:relative;z-index:2;padding:40px 20px 60px;display:flex;flex-direction:column;align-items:center;gap:26px;max-width:560px;margin:0 auto;}
+
+  #title{font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,52px);font-weight:700;color:#fff;text-align:center;letter-spacing:3px;opacity:0;animation:fadeScaleIn 1.8s ease forwards 0.5s;text-shadow:0 0 30px #a855f7,0 0 70px #8b00ff66;line-height:1.2;}
+  #name{font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,34px);font-style:italic;color:#e0bbff;text-align:center;opacity:0;animation:fadeScaleIn 1.8s ease forwards 1.1s;text-shadow:0 0 20px #c026d366;}
+  #divider{width:0;height:1px;background:linear-gradient(90deg,transparent,#a855f7,transparent);animation:expandLine 1.2s ease forwards 1.9s;opacity:0;}
+
+  .msg-box{background:rgba(80,0,130,0.2);border:0.5px solid #7c3aed66;border-radius:14px;padding:22px 26px;max-width:500px;width:100%;opacity:0;animation:fadeUp 1.4s ease forwards 2.2s;}
+  .msg-box p{font-size:14px;color:#d4b8f0;line-height:1.9;font-weight:300;text-align:center;}
+  .msg-box .sig{margin-top:12px;font-family:'Playfair Display',serif;font-style:italic;color:#a855f7;font-size:14px;text-align:right;}
+
+  .sec-label{font-size:10px;letter-spacing:4px;color:#7c3aed;text-transform:uppercase;text-align:center;}
+
+  /* Photo */
+  .photo-frame{position:relative;width:170px;height:170px;border-radius:50%;border:2.5px solid #a855f7;overflow:hidden;background:rgba(80,0,130,0.3);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;cursor:pointer;transition:border-color 0.25s;}
+  .photo-frame:hover{border-color:#e0bbff;}
+  .photo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+  .glow-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid #a855f744;animation:pulseRing 2.5s ease-in-out infinite;pointer-events:none;}
+
+  /* Video & Music */
+  .media-frame{width:100%;max-width:500px;border-radius:14px;border:0.5px solid #7c3aed66;background:rgba(60,0,100,0.25);overflow:hidden;padding:24px;transition:border-color 0.25s;}
+  .media-frame:hover{border-color:#a855f7;}
+  .media-frame video, .media-frame audio{width:100%;border-radius:10px;}
+  .mus-hint, .vid-hint{font-size:11px;color:#9f7aea;letter-spacing:1px;text-align:center;margin-top:8px;}
+
+  #footer{font-size:10px;color:#5a3a7a;letter-spacing:3px;text-align:center;padding-top:4px;}
+
+  @keyframes fadeScaleIn{from{opacity:0;transform:scale(0.85) translateY(12px)}to{opacity:1;transform:none}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes expandLine{from{width:0;opacity:0}to{width:220px;opacity:1}}
+  @keyframes pulseRing{0%,100%{transform:scale(1);opacity:0.5}50%{transform:scale(1.07);opacity:1}}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<canvas id="fx-canvas"></canvas>
+
+<div id="scroll">
+  <!-- Cake SVG -->
+  <svg width="90" height="78" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="42" width="70" height="30" rx="6" fill="#2d004d"/>
+    <rect x="10" y="42" width="70" height="10" rx="3" fill="#5b0099"/>
+    <rect x="18" y="55" width="12" height="17" rx="2" fill="#7c00cc"/>
+    <rect x="39" y="55" width="12" height="17" rx="2" fill="#7c00cc"/>
+    <rect x="60" y="55" width="12" height="17" rx="2" fill="#7c00cc"/>
+    <rect x="25" y="30" width="6" height="14" rx="3" fill="#c026d3"/>
+    <rect x="42" y="26" width="6" height="18" rx="3" fill="#c026d3"/>
+    <rect x="59" y="30" width="6" height="14" rx="3" fill="#c026d3"/>
+    <ellipse id="f1" cx="28" cy="28" rx="4" ry="6" fill="#ffcc44"/>
+    <ellipse id="f2" cx="45" cy="24" rx="4" ry="6" fill="#ffcc44"/>
+    <ellipse id="f3" cx="62" cy="28" rx="4" ry="6" fill="#ffcc44"/>
+  </svg>
+
+  <div id="title">Happy Birthday</div>
+  <div id="name">Reina ♥</div>
+  <div id="divider"></div>
+
+  <div class="msg-box">
+    <p>
+      To the most brilliant, coffee-fueled, bug-slaying queen I know &mdash;
+      today is entirely, completely, beautifully <em>yours</em>. 🎉<br><br>
+      You bring so much warmth, genius, and laughter into every room you
+      walk into &mdash; and every codebase you touch is luckier for it.<br><br>
+      May this year overflow with breakthroughs, beautiful surprises,
+      deep belly laughs, and endless cups of your favourite brew. ☕<br><br>
+      Keep shining, keep debugging, and never stop being the extraordinary
+      human that you are. The world is genuinely so lucky to have you in it. 💜
+    </p>
+    <div class="sig">With so much love &amp; admiration ♥</div>
+  </div>
+
+  <!-- Photo - Pre-loaded (replace src with your photo filename) -->
+  <div class="sec-label">✦ her moment ✦</div>
+  <div class="photo-frame" id="photo-frame">
+    <div class="glow-ring"></div>
+    <img id="photo-img" src="https://files.catbox.moe/tcpdiq.jpg" alt="Reina" style="display:block;"/>
+  </div>
+
+ <!-- Photo - Pre-loaded (replace src with your photo filename) -->
+  <div class="sec-label">✦ her moment ✦</div>
+  <div class="photo-frame" id="photo-frame">
+    <div class="glow-ring"></div>
+    <img id="photo-img" src="https://files.catbox.moe/87h4r0.jpg" alt="Reina" style="display:block;"/>
+  </div>
+
+ <!-- Photo - Pre-loaded (replace src with your photo filename) -->
+  <div class="sec-label">✦ her moment ✦</div>
+  <div class="photo-frame" id="photo-frame">
+    <div class="glow-ring"></div>
+    <img id="photo-img" src="https://files.catbox.moe/687lci.jpg" alt="Reina" style="display:block;"/>
+  </div>
+
+  <!-- Video - Pre-loaded (replace src with your video filename) -->
+  <div class="sec-label">✦ her video ✦</div>
+  <div class="media-frame">
+    <video id="vid-player" controls loop src="https://files.catbox.moe/9qgsfk.mp4"></video>
+    <div class="vid-hint">Reina's birthday video</div>
+  </div>
+<!-- Video - Pre-loaded (replace src with your video filename) -->
+  <div class="sec-label">✦ her video ✦</div>
+  <div class="media-frame">
+    <video id="vid-player" controls loop src="https://files.catbox.moe/qidy6s.mp4"></video>
+    <div class="vid-hint">Reina's birthday video</div>
+  </div>
+<!-- Video - Pre-loaded (replace src with your video filename) -->
+  <div class="sec-label">✦ her video ✦</div>
+  <div class="media-frame">
+    <video id="vid-player" controls loop src="https://files.catbox.moe/xkp6md.mp4"></video>
+    <div class="vid-hint">Reina's birthday video</div>
+  </div>
+<!-- Video - Pre-loaded (replace src with your video filename) -->
+  <div class="sec-label">✦ her video ✦</div>
+  <div class="media-frame">
+    <video id="vid-player" controls loop src="https://files.catbox.moe/m4ku9h.mp4"></video>
+    <div class="vid-hint">Reina's birthday video</div>
+  </div>
+<!-- Video - Pre-loaded (replace src with your video filename) -->
+  <div class="sec-label">✦ her video ✦</div>
+  <div class="media-frame">
+    <video id="vid-player" controls loop src="https://files.catbox.moe/73hbv7.mp4"></video>
+    <div class="vid-hint">Reina's birthday video</div>
+  </div>
+
+  <!-- Music - Pre-loaded (replace src with your song filename) -->
+  <div class="sec-label">✦ her soundtrack ✦</div>
+  <div class="media-frame">
+    <audio id="audio-player" controls loop src="https://files.catbox.moe/mdb14q.mp3"></audio>
+    <div class="mus-hint">Reina's favorite song • auto-loops</div>
+  </div>
+
+  <div id="footer">✦ click anywhere to celebrate ✦</div>
+</div>
+
+<script>
+const bgC=document.getElementById('bg-canvas'), fxC=document.getElementById('fx-canvas');
+const bgCtx=bgC.getContext('2d'), fxCtx=fxC.getContext('2d');
+let W,H;
+function resize(){W=bgC.width=fxC.width=window.innerWidth;H=bgC.height=fxC.height=window.innerHeight;}
+resize(); window.addEventListener('resize', resize);
+
+const bColors=['#8b00ff','#c026d3','#a855f7','#1a0033','#6d28d9','#e879f9'];
+const stars=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.3+0.3,a:Math.random(),da:(Math.random()-0.5)*0.01}));
+const balloons=Array.from({length:16},(_,i)=>({x:0.04+Math.random()*0.92,y:1.1+Math.random()*0.5,vy:0.0005+Math.random()*0.0009,vx:(Math.random()-0.5)*0.0003,phase:Math.random()*Math.PI*2,color:bColors[i%bColors.length],size:14+Math.random()*14,isHeart:Math.random()>0.6}));
+const glitter=Array.from({length:60},()=>({x:Math.random(),y:Math.random(),vy:0.0003+Math.random()*0.0005,vx:(Math.random()-0.5)*0.0002,r:Math.random()*2+0.5,a:Math.random(),da:(Math.random()-0.5)*0.03,color:['#a855f7','#e0bbff','#fff','#c026d3'][Math.floor(Math.random()*4)]}));
+let particles=[],t=0;
+
+function spawnBurst(x,y,n=38){
+  for(let i=0;i<n;i++){const ang=Math.random()*Math.PI*2,spd=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd-2.5,life:1,decay:0.016+Math.random()*0.015,r:2+Math.random()*3,color:bColors[Math.floor(Math.random()*bColors.length)],star:Math.random()>0.5});}
+}
+
+function drawHeart(ctx,cx,cy,sz,col){ctx.save();ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(cx,cy+sz*0.3);ctx.bezierCurveTo(cx-sz,cy-sz*0.5,cx-sz*2,cy+sz*0.6,cx,cy+sz*1.5);ctx.bezierCurveTo(cx+sz*2,cy+sz*0.6,cx+sz,cy-sz*0.5,cx,cy+sz*0.3);ctx.fill();ctx.restore();}
+function drawBalloon(ctx,bx,by,sz,col){ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(bx,by,sz*0.7,sz,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(255,255,255,0.14)';ctx.beginPath();ctx.ellipse(bx-sz*0.18,by-sz*0.25,sz*0.18,sz*0.28,-0.4,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(bx,by+sz);ctx.lineTo(bx+Math.sin(by*0.05)*7,by+sz+28);ctx.stroke();}
+
+const flames=[document.getElementById('f1'),document.getElementById('f2'),document.getElementById('f3')];
+let ft=0;
+function flickerFlames(){ft++;flames.forEach((f,i)=>{const s=0.85+0.3*Math.sin(ft*0.18+i*1.4),dy=-1.5*Math.sin(ft*0.22+i);f.setAttribute('transform',`translate(0,${dy.toFixed(2)}) scale(1,${s.toFixed(3)})`);});}
+
+function draw(){
+  t++;flickerFlames();
+  bgCtx.fillStyle='#0a0008';bgCtx.fillRect(0,0,W,H);
+  stars.forEach(s=>{s.a+=s.da;bgCtx.fillStyle=`rgba(200,170,255,${(0.3+0.5*Math.abs(Math.sin(s.a))).toFixed(2)})`;bgCtx.beginPath();bgCtx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);bgCtx.fill();});
+  const grd=bgCtx.createRadialGradient(W/2,H*0.15,0,W/2,H*0.15,W*0.65);grd.addColorStop(0,'rgba(100,0,180,0.12)');grd.addColorStop(1,'rgba(0,0,0,0)');bgCtx.fillStyle=grd;bgCtx.fillRect(0,0,W,H);
+  balloons.forEach(b=>{b.y-=b.vy;b.x+=Math.sin(t*0.012+b.phase)*0.0015;if(b.y<-0.15){b.y=1.15;b.x=0.04+Math.random()*0.92;}bgCtx.globalAlpha=0.78;if(b.isHeart)drawHeart(bgCtx,b.x*W,b.y*H,b.size*0.55,b.color);else drawBalloon(bgCtx,b.x*W,b.y*H,b.size,b.color);bgCtx.globalAlpha=1;});
+  glitter.forEach(g=>{g.y-=g.vy;g.x+=g.vx;g.a+=g.da;if(g.y<0)g.y=1;bgCtx.fillStyle=g.color;bgCtx.globalAlpha=0.4+0.5*Math.abs(Math.sin(g.a));bgCtx.beginPath();bgCtx.arc(g.x*W,g.y*H,g.r,0,Math.PI*2);bgCtx.fill();bgCtx.globalAlpha=1;});
+  fxCtx.clearRect(0,0,W,H);
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.08;p.life-=p.decay;fxCtx.globalAlpha=Math.max(0,p.life);fxCtx.fillStyle=p.color;if(p.star){fxCtx.font=`${p.r*4}px serif`;fxCtx.fillText('✦',p.x,p.y);}else{fxCtx.beginPath();fxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);fxCtx.fill();}fxCtx.globalAlpha=1;});
+  requestAnimationFrame(draw);
+}
+
+document.body.addEventListener('click', e => {
+  if (e.target.closest('video') || e.target.closest('audio') || e.target.closest('img')) return;
+  spawnBurst(e.clientX, e.clientY, 42);
+});
+
+setTimeout(()=>spawnBurst(W/2, H*0.3, 60), 2800);
+draw();
+</script>
+</body>
+</html>
